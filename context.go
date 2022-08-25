@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 	"sync"
+	"syscall"
 )
 
 type Error struct {
@@ -40,7 +41,7 @@ func (c *signalContext) Err() error {
 	return err
 }
 
-var defaultNotify = []os.Signal{os.Interrupt}
+var defaultNotify = []os.Signal{os.Interrupt, syscall.SIGTERM}
 
 // Context returns a context.Context that is cancelled on any of the given os.Signal.
 // If no signals are provided then os.Interrupt is used in its place.
